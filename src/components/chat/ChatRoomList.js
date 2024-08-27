@@ -2,21 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { RootUrl } from '../../api/RootUrl';
 import { useSelector } from 'react-redux';
+import '../../styles/chatRoomList.scss';
 
 const ChatRoomList = () => {
   const [chatRooms, setChatRooms] = useState([]);
   const [newRoomTitle, setNewRoomTitle] = useState('');
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.authSlice);
-  const uid = currentUser?.uid; // currentUser에서 uid만 추출
+  const uid = currentUser?.uid;
 
   useEffect(() => {
     if(!currentUser || !currentUser.uid){
       navigate('/user/login');
     }else{
-    fetch(`${RootUrl}/chatrooms`)
+    fetch(`${RootUrl}/chatrooms?uid=${currentUser.uid}`)
       .then(response => response.json())
-      .then(data => setChatRooms(data))
+      .then(data => {
+        if (Array.isArray(data)) {
+          setChatRooms(data);
+        } else {
+            console.error('Received data is not an array:', data);
+            setChatRooms([]);  // 데이터가 배열이 아닌 경우 빈 배열로 설정
+        }
+    })
       .catch(error => console.error('Error fetching chat rooms:', error));
     }
     
@@ -44,27 +52,39 @@ const ChatRoomList = () => {
       .catch(error => console.error('Error creating chat room:', error));
   };
 
-  return (
-    <div>
-      <h1>Chat Rooms</h1>
-      <ul>
-        {chatRooms.map(room => (
-          <li key={room.chatNo}>
-            <Link to={`/chatroom/${room.chatNo}`}>{room.title}</Link>
-          </li>
-        ))}
-      </ul>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter new room title"
-          value={newRoomTitle}
-          onChange={(e) => setNewRoomTitle(e.target.value)}
-        />
-        <button onClick={createChatRoom}>Create Room</button>
-      </div>
+  const goBack = () => {
+    navigate('/');
+};
+
+
+return (
+  
+  <div className="chat-room-list-container">
+    <div className="header-container">
+      <button className="back-button" onClick={goBack}>
+        ←
+      </button>
+      <h1>채팅방</h1>
     </div>
-  );
+    <ul>
+      {chatRooms.map(room => (
+        <li key={room.chatNo}>
+          <Link to={`/chatroom/${room.chatNo}`}>{room.title}</Link>
+        </li>
+      ))}
+    </ul>
+    <div>
+      <input
+        type="text"
+        placeholder="방 제목을 입력하세요"
+        value={newRoomTitle}
+        onChange={(e) => setNewRoomTitle(e.target.value)}
+      />
+      <button onClick={createChatRoom}>방 만들기</button>
+    </div>
+  </div>
+);
+
 };
 
 export default ChatRoomList;

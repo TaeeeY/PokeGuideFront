@@ -1,0 +1,137 @@
+
+.community >p{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+
+.boardList {
+    margin-top: 20px;
+    width:100%;
+    height: auto;
+    border-collapse: collapse; //셀 간격을 없앰
+}
+
+.boardList ul li {
+
+    list-style-type: none;//li의 점 없애기
+}
+/*
+.boardList thead{
+    height: 30px;
+}
+
+.boardList th,
+.boardList td {
+    border-bottom: 1px solid black; // 제목과 내용 사이에 경계선
+    font-size: 13px;
+    text-align: center;
+    padding: 10px;
+}
+
+.boardList tbody tr td:nth-child(1){
+    width: 30px;
+}
+
+
+.boardList tbody tr td:nth-child(4){
+    width: 90px;
+}
+
+
+.boardList th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+    */
+
+
+ //게시판 리스트 
+
+
+ .searchWriteContainer{
+    display: flex;
+    border-bottom : 1px solid lightgray;
+    padding-bottom: 30px;
+    //justify-content: space-between;
+ }
+
+ //글쓰기 버튼
+
+.writeBtn{
+    display: flex;
+    color: white;
+    background-color: yellowgreen;
+    border: none;
+    padding: 7px;
+    float: right;
+    cursor: pointer;
+    margin-right: auto; /* 왼쪽 정렬 */
+}
+
+//검색
+
+.search{
+    display: flex;
+    margin-left: auto;
+}
+
+.searchCate{
+    padding: 5px;
+    display: inline-block;
+    border: 1px solid lightgray;
+}
+
+
+.searchContent{
+    
+    padding: 5px;
+    border: 1px solid lightgray;
+    display: inline-block;
+
+}
+
+.searchBtn{
+
+    padding: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: yellowgreen;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.boardContainer {
+    width: 1150px; /* 테이블과 버튼을 감싸는 컨테이너의 너비를 설정 */
+    margin-top: 20px;
+    position: relative;
+}
+
+
+
+//---------------------------------------------------------------------글쓰기-------------------------------------------------------------
+.write{
+    width: 100%;
+    height: auto;
+}
+
+
+//글쓰기 제목
+.title{
+    display: flex;
+    background-color: rgb(247, 247, 247);
+    width: 97%;
+}
+
+.title p{
+    display: inline-block;
+}
+
+.title input{
+    display: inline-block;
+}
+
+.contents{
+    display: flex;
+}
